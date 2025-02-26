@@ -40,8 +40,8 @@ class Perceptron:
                 break
         print(f"The training ended after {epoch+1} epochs.")
 
-    def hebbian(self, training_inputs, true_outputs):
-        return self.rosenblatt_batch(training_inputs, true_outputs, 1)
+    def hebbian(self, training_inputs, true_outputs, print_progress=True):
+        return self.rosenblatt_batch(training_inputs, true_outputs, 1, 1, print_progress)
 
     def rosenblatt_iterative(self, training_inputs, true_outputs, learning_rate = 1, epochs=100, print_progress=True):
         print("Rosenblatt iterative:")
