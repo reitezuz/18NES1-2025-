@@ -108,40 +108,44 @@ class Perceptron:
         self.best_epoch = best_epoch
 
 
+
 def plot_decision_boundary_2D(perceptron, training_inputs, true_outputs):
     """Plots the decision boundary of the perceptron."""
+    import matplotlib.pyplot as plt
+    import numpy as np
 
     # Extract the first two columns of training_inputs
     x1 = training_inputs[:, 0]
     x2 = training_inputs[:, 1]
 
     # Generate points for visualization
-    x = np.linspace(np.min(x1), np.max(x1), 100)
+    x_min, x_max = np.min(x1) - 1, np.max(x1) + 1  # Extend the range slightly
+    y_min, y_max = np.min(x2) - 1, np.max(x2) + 1  # Extend the range slightly
+
+    x = np.linspace(x_min, x_max, 100)
     y = -(perceptron.weights[0] * x + perceptron.bias) / perceptron.weights[1]
 
     # Plot the decision boundary
     plt.plot(x, y, label='Decision Boundary')
 
-    # Plot the points (optional)
-    vals = [0, 1] if perceptron.binary else [-1, 1]
-    for i in vals:
-        for j in vals:
-            out = perceptron.forward(np.array([i, j]))
-            if out == 1:
-                plt.scatter(i, j, color='green')
-            else:
-                plt.scatter(i, j, color='red')
+    # Plot the points
+    for i, input_vector in enumerate(training_inputs):
+        if true_outputs[i] == 1:
+            plt.scatter(input_vector[0], input_vector[1], color='green', label='Class 1' if i == 0 else "")  # Add label only for the first point of each class
+        else:
+            plt.scatter(input_vector[0], input_vector[1], color='red', label='Class -1' if i == 0 else "")
 
     plt.xlabel('x1', fontsize=12)
     plt.ylabel('x2', fontsize=12)
     plt.title('Perceptron Decision Boundary', fontsize=14)
     plt.grid(True)
     plt.legend()
+    plt.xlim(x_min, x_max)
+    plt.ylim(y_min, y_max)  # Set y-axis limits
 
     # Highlight x and y axes
     plt.axhline(0, color='black', linewidth=0.8)  # x-axis
     plt.axvline(0, color='black', linewidth=0.8)  # y-axis
-
     plt.show()
 
 def plot_decision_boundary_3D(perceptron, training_inputs, true_outputs):
