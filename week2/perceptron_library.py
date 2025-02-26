@@ -39,6 +39,7 @@ class Perceptron:
             if np.sum(np.abs(errors)) == 0:
                 break
         print(f"The training ended after {epoch+1} epochs.")
+        self.epochs = epochs
 
     def hebbian(self, training_inputs, true_outputs, print_progress=True):
         return self.rosenblatt_batch(training_inputs, true_outputs, 1, 1, print_progress)
@@ -64,6 +65,7 @@ class Perceptron:
             if errors == 0: # Check if there were any errors in this epoch.
                 break # End training if no errors were found
         print(f"The training ended after {epoch+1} epochs.")
+        self.epochs = epochs
 
     def rosenblatt_iterative_best(self, training_inputs, true_outputs, learning_rate = 1, epochs=100, print_progress=True):
         print("Rosenblatt iterative + store best solution:")
@@ -96,6 +98,7 @@ class Perceptron:
         self.bias = best_bias
         print(f"The best solution found in {best_epoch+1} epochs with error {min_errors}.")
         print(f"The training ended after {epoch+1} epochs.")
+        self.epochs = epochs
 
 
 def plot_decision_boundary_2D(perceptron, training_inputs, true_outputs):
