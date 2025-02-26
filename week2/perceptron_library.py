@@ -7,6 +7,7 @@ class Perceptron:
         self.weights = np.array(weights, dtype=float)
         self.bias = bias
         self.binary = binary
+        self.epochs = -1
 
     def __str__(self):
         return f"Perceptron(weights={self.weights}, bias={self.bias}, binary={self.binary})"
