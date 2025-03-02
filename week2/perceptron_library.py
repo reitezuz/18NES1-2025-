@@ -92,7 +92,7 @@ class Perceptron:
                 self.weights += learning_rate * error * inputs
                 self.bias += learning_rate * error
                 errors += abs(error) # Accumulate the absolute errors
-            perceptr_error = perceptron_error(self.forward(training_inputs, true_outputs))
+            perceptr_error = perceptron_error(self.forward(training_inputs), true_outputs)
             if perceptr_error < min_errors:
                 min_errors = perceptr_error
                 best_weights = self.weights.copy()
