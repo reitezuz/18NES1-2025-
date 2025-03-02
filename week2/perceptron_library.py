@@ -92,15 +92,16 @@ class Perceptron:
                 self.weights += learning_rate * error * inputs
                 self.bias += learning_rate * error
                 errors += abs(error) # Accumulate the absolute errors
-            if errors < min_errors:
-                min_errors = errors
+            perceptr_error = perceptron_error(self.forward(training_inputs, true_outputs))
+            if perceptr_error < min_errors:
+                min_errors = perceptr_error
                 best_weights = self.weights.copy()
-                best_bias = self.bias
+                best_bias = self.bias.copy()
                 best_epoch = epoch
             if errors == 0: # Check if there were any errors in this epoch.
                 break # End training if no errors were found
-        self.weights = best_weights
-        self.bias = best_bias
+        self.weights = best_weights.copy()
+        self.bias = best_bias.copy()
         if print_progress:
             print(f"The best solution found in {best_epoch+1} epochs with error {min_errors}.")
             print(f"The training ended after {epoch+1} epochs.")
